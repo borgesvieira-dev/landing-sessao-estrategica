@@ -1,0 +1,691 @@
+/* ==========================================================================
+   Variáveis
+   ========================================================================== */
+:root {
+  --bg: #020814;
+  --bg-alt: #04102a;
+  --surface: rgba(10, 26, 58, 0.55);
+  --border: rgba(56, 140, 255, 0.22);
+
+  --text: #ffffff;
+  --text-muted: #b7c3d9;
+  --accent: #2ea8f0;
+  --accent-strong: #1e88e5;
+  --cta: #e8962a;
+  --cta-hover: #f5a63c;
+  --success: #22d07a;
+
+  --radius: 12px;
+  --radius-pill: 999px;
+  --container: 1140px;
+  --gutter: 20px;
+  --section-space: clamp(64px, 10vw, 112px);
+
+  --font: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.sprite {
+  display: none;
+}
+
+/* ==========================================================================
+   Utilitários e layout
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-space);
+}
+
+.section__title {
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  margin-bottom: 32px;
+}
+
+.section__title--center {
+  text-align: center;
+  max-width: 720px;
+  margin-inline: auto;
+  margin-bottom: 48px;
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Componentes
+   ========================================================================== */
+
+/* Botão CTA */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px clamp(20px, 5vw, 32px);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--cta);
+  color: #fff;
+  font: 800 clamp(0.875rem, 2.5vw, 1rem)/1.2 var(--font);
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(232, 150, 42, 0.35);
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+  background: var(--cta-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 34px rgba(232, 150, 42, 0.45);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.microcopy {
+  margin-top: 14px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-strong);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 0 40px rgba(30, 136, 229, 0.08) inset;
+}
+
+/* Halo: brilho azul atrás das fotos, fazendo a base da imagem sumir no fundo */
+.halo {
+  position: relative;
+  isolation: isolate;
+}
+
+.halo::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 4% -10% 30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46, 168, 240, 0.55) 0%, rgba(30, 136, 229, 0.18) 45%, transparent 70%);
+  filter: blur(10px);
+}
+
+.halo--rings::before {
+  background:
+    repeating-radial-gradient(circle, transparent 0 22px, rgba(46, 168, 240, 0.35) 23px 25px, transparent 26px 40px),
+    radial-gradient(circle, rgba(46, 168, 240, 0.6) 0%, rgba(30, 136, 229, 0.15) 50%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle, #000 55%, transparent 70%);
+  mask-image: radial-gradient(circle, #000 55%, transparent 70%);
+  filter: none;
+}
+
+.halo img {
+  width: 100%;
+  height: auto;
+  -webkit-mask-image: radial-gradient(ellipse 55% 60% at 50% 38%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 55% 60% at 50% 38%, #000 55%, transparent 100%);
+}
+
+/* Lista com check */
+.check-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.check-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+}
+
+.check-list svg {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--success);
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero {
+  position: relative;
+  padding: 24px 0 72px;
+  overflow: hidden;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(30, 136, 229, 0.35), transparent 70%),
+    linear-gradient(180deg, #03112b 0%, var(--bg) 100%);
+}
+
+.hero__grid {
+  display: grid;
+  gap: 8px;
+}
+
+.hero__media {
+  max-width: 340px;
+  margin-inline: auto;
+  margin-bottom: -48px;
+}
+
+.hero__media img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top;
+}
+
+.brand {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.brand strong {
+  color: var(--text);
+}
+
+.hero h1 {
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  margin-bottom: 20px;
+}
+
+.hero__subtitle {
+  font-size: clamp(1.0625rem, 2.2vw, 1.3rem);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.hero__text {
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.scroll-arrow {
+  width: 28px;
+  height: 28px;
+  margin: 48px auto 0;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Seção 1 — Identificação / dor
+   ========================================================================== */
+.pain {
+  background: radial-gradient(ellipse 60% 40% at 0% 50%, rgba(30, 136, 229, 0.15), transparent 70%);
+}
+
+.pain__grid {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Linha vertical tracejada ligando os marcadores */
+.pain__list {
+  position: relative;
+  display: grid;
+  gap: 24px;
+}
+
+.pain__list::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 11px;
+  border-left: 2px dashed rgba(46, 168, 240, 0.4);
+}
+
+.pain__list li {
+  position: relative;
+  padding-left: 44px;
+  font-size: clamp(1.0625rem, 2vw, 1.25rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.pain__list li::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0 30%, #0b2a55 32% 100%);
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 12px rgba(46, 168, 240, 0.6);
+}
+
+.pain__note {
+  display: grid;
+  gap: 16px;
+  padding: 32px;
+  font-size: 1.0625rem;
+  color: var(--text-muted);
+}
+
+.pain__note strong {
+  color: var(--text);
+}
+
+.pain__note .text-accent {
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Seção 2 — Entregas
+   ========================================================================== */
+.deliverables {
+  display: grid;
+  gap: 24px;
+}
+
+.deliverable {
+  display: grid;
+  gap: 24px;
+  justify-items: center;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.deliverable h3 {
+  margin: 16px 0 8px;
+  font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+}
+
+.deliverable p {
+  color: var(--text-muted);
+}
+
+.deliverable__icon {
+  display: grid;
+  place-items: center;
+  width: 140px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid rgba(46, 168, 240, 0.5);
+  background: radial-gradient(circle, rgba(46, 168, 240, 0.25), transparent 70%);
+  box-shadow: 0 0 40px rgba(46, 168, 240, 0.35), 0 0 20px rgba(46, 168, 240, 0.25) inset;
+}
+
+.deliverable__icon svg {
+  width: 64px;
+  height: 64px;
+  fill: none;
+  stroke: #7fd4ff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(46, 168, 240, 0.9));
+}
+
+/* ==========================================================================
+   Seção 3 — Especialista
+   ========================================================================== */
+.expert {
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg) 0%, #000 100%);
+}
+
+.expert__grid {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+
+.expert__media {
+  order: -1;
+  max-width: 380px;
+  margin-inline: auto;
+}
+
+.expert__title {
+  font-size: clamp(2.25rem, 7vw, 4.5rem);
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.expert__title .text-accent {
+  display: block;
+  text-transform: uppercase;
+}
+
+.expert__name {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.expert__role {
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.expert__content > p:not([class]) {
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+}
+
+.expert__disclaimer {
+  margin-top: 20px;
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   Seção 4 — Como funciona
+   ========================================================================== */
+.steps {
+  display: grid;
+  gap: 20px;
+}
+
+.step {
+  position: relative;
+  padding: 32px 24px;
+  text-align: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(46, 168, 240, 0.22), transparent 65%),
+    var(--surface);
+}
+
+.step__number {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 20px;
+  border-radius: 12px;
+  background: var(--accent-strong);
+  font-size: 1.5rem;
+  font-weight: 800;
+  box-shadow: 0 0 24px rgba(30, 136, 229, 0.55);
+}
+
+.step p {
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   CTA final / formulário
+   ========================================================================== */
+.apply {
+  background:
+    radial-gradient(ellipse 50% 60% at 100% 50%, rgba(30, 136, 229, 0.2), transparent 70%),
+    var(--bg-alt);
+}
+
+.apply__grid {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+
+.apply__content > p {
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+}
+
+.form {
+  display: grid;
+  gap: 18px;
+  padding: 28px 20px;
+  text-align: center;
+}
+
+.form__field {
+  display: grid;
+  gap: 6px;
+  text-align: left;
+}
+
+.form label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.form input,
+.form select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(2, 8, 20, 0.7);
+  color: var(--text);
+  font: 500 1rem var(--font);
+}
+
+.form input::placeholder {
+  color: #6c7a94;
+}
+
+.form input:focus,
+.form select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(46, 168, 240, 0.25);
+}
+
+.form .btn {
+  margin-top: 8px;
+}
+
+.form .microcopy {
+  margin-top: 0;
+}
+
+/* ==========================================================================
+   Rodapé
+   ========================================================================== */
+.footer {
+  padding-block: 32px;
+  border-top: 1px solid var(--border);
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Tablet (≥ 768px)
+   ========================================================================== */
+@media (min-width: 768px) {
+  :root {
+    --gutter: 32px;
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .deliverable {
+    grid-template-columns: 160px 1fr;
+    justify-items: start;
+    align-items: center;
+    gap: 40px;
+    padding: 40px;
+    text-align: left;
+  }
+
+  /* Alterna o lado do ícone, como na referência */
+  .deliverable:nth-child(even) {
+    grid-template-columns: 1fr 160px;
+  }
+
+  .deliverable:nth-child(even) .deliverable__icon {
+    order: 1;
+  }
+
+  .form {
+    padding: 36px 32px;
+  }
+}
+
+/* ==========================================================================
+   Desktop (≥ 1024px)
+   ========================================================================== */
+@media (min-width: 1024px) {
+  .hero {
+    padding-top: 48px;
+    text-align: left;
+  }
+
+  .hero__grid {
+    grid-template-columns: 1fr 1.1fr;
+    align-items: center;
+    gap: 56px;
+  }
+
+  .hero__media {
+    max-width: 460px;
+    margin: 0;
+  }
+
+  .hero__media img {
+    aspect-ratio: 2 / 3;
+  }
+
+  .pain__grid {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+  }
+
+  .deliverables {
+    max-width: 960px;
+    margin-inline: auto;
+  }
+
+  .expert__grid {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+  }
+
+  .expert__media {
+    order: 0;
+    max-width: 440px;
+  }
+
+  .steps {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .apply__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+}
+
+/* ==========================================================================
+   Acessibilidade: menos movimento
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .btn {
+    transition: none;
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+}
