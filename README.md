@@ -2,14 +2,13 @@
 
 Landing page de captação para uma sessão estratégica gratuita, desenvolvida como teste prático (2ª etapa) usando **apenas HTML e CSS puro**.
 
-🔗 **Deploy:** https://borgesvieira-dev.github.io/landing-sessao-estrategica/
+🔗 **Deploy:** https://sessao-estrategica.vieiradev.com.br/
 
 ## Tecnologias
 
 - HTML5 semântico
 - CSS3 puro (custom properties, Flexbox, Grid, `clamp()`)
 - Fonte Montserrat (Google Fonts)
-- Sem frameworks, templates, bibliotecas ou JavaScript
 
 ## Estrutura
 
@@ -24,7 +23,7 @@ Landing page de captação para uma sessão estratégica gratuita, desenvolvida 
 
 - **Mobile-first**, com breakpoints em `768px` (tablet) e `1024px` (desktop). Tipografia e espaçamentos fluidos com `clamp()`.
 - **Hierarquia**: um único `h1` no hero; cada seção com seu `h2` (ligado via `aria-labelledby`) e `h3` nos cards.
-- **Visual** baseado na referência (tema escuro azul com brilhos neon e CTAs laranja), sem replicá-la nos mínimos detalhes.
+- **Visual** baseado na referência (tema escuro azul com brilhos neon e CTAs laranja).
 - **Ícones em SVG inline** (com um pequeno sprite `<symbol>` para os reutilizados), evitando bibliotecas e requisições extras.
 - Efeitos de brilho e anéis atrás das fotos feitos só com `radial-gradient`, `repeating-radial-gradient` e `mask-image`.
 - Todos os CTAs levam à seção do formulário (`#aplicar`) com rolagem suave.
@@ -43,7 +42,6 @@ python3 -m http.server 8000
 
 - **Formulário sem backend**: o teste pede somente HTML e CSS, então o formulário tem validação nativa (`required`, `type="email"`), mas não envia dados para nenhum serviço.
 - **Especialista fictício**: "Lucas Andrade" é um personagem criado para o teste. A foto é de banco de imagens gratuito.
-- Não houve impedimentos técnicos no deploy.
 
 ## Créditos
 
